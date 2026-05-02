@@ -1,0 +1,39 @@
+name: build-and-lint
+
+# This workflow will run on push and pull request events for the main and dev branches. It will build the project and run linting checks to ensure code quality.
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+# Defines the jobs that will run for this workflow.
+
+jobs:
+  build-and-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install backend dependencies
+        working-directory: ./server
+        run: npm ci
+
+      - name: Lint backend code
+        working-directory: ./server
+        run: npm run lint -- --max-warnings-0
+
+      - name: Install frontend dependencies
+        working-directory: ./client
+        run: npm ci
+
+      - name: Lint frontend code
+        working-directory: ./client
+        run: npm run lint -- --max-warnings-0
