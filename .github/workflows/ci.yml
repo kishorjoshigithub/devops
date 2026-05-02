@@ -28,7 +28,7 @@ jobs:
 
       - name: Lint backend code
         working-directory: ./server
-        run: npm run lint -- --max-warnings-0
+        run: npm run lint --max-warnings-0
 
       - name: Install frontend dependencies
         working-directory: ./client
@@ -36,4 +36,4 @@ jobs:
 
       - name: Lint frontend code
         working-directory: ./client
-        run: npm run lint -- --max-warnings-0
+        run: npm run lint --max-warnings-0
